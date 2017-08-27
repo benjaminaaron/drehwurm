@@ -92,7 +92,16 @@ function init() {
     geom.faces.push(new THREE.Face3(24,3,28));
 
     // blue arrow + side
+    geom.faces.push(new THREE.Face3(4,5,14));
+    geom.faces.push(new THREE.Face3(5,14,15));
+    geom.faces.push(new THREE.Face3(13,12,7));
+    geom.faces.push(new THREE.Face3(13,7,6));
+
     // blue arrow - side
+    geom.faces.push(new THREE.Face3(0,3,29));
+    geom.faces.push(new THREE.Face3(3,29,28));
+    geom.faces.push(new THREE.Face3(23,1,22));
+    geom.faces.push(new THREE.Face3(1,22,2));
 
     var spheres = [];
     for (var i = 0 ; i < geom.vertices.length ; i++) { // via stackoverflow.com/a/26382195/2474159
