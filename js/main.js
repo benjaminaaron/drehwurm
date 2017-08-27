@@ -60,9 +60,37 @@ function init() {
     geom.vertices = vertices;
 
     // blender green arrow + side
+    geom.faces.push(new THREE.Face3(0,4,10));
+    geom.faces.push(new THREE.Face3(10,14,4));
+    geom.faces.push(new THREE.Face3(0,10,3));
+    geom.faces.push(new THREE.Face3(10,3,8));
+    geom.faces.push(new THREE.Face3(3,8,7));
+    geom.faces.push(new THREE.Face3(8,7,12));
+
     // green arrow - side
+    geom.faces.push(new THREE.Face3(5,1,11));
+    geom.faces.push(new THREE.Face3(5,11,15));
+    geom.faces.push(new THREE.Face3(11,1,2));
+    geom.faces.push(new THREE.Face3(11,2,9));
+    geom.faces.push(new THREE.Face3(2,9,6));
+    geom.faces.push(new THREE.Face3(9,6,13));
+
     // red arrow + side
+    geom.faces.push(new THREE.Face3(0,4,27));
+    geom.faces.push(new THREE.Face3(0,27,29));
+    geom.faces.push(new THREE.Face3(4,27,5));
+    geom.faces.push(new THREE.Face3(27,5,21));
+    geom.faces.push(new THREE.Face3(5,21,1));
+    geom.faces.push(new THREE.Face3(21,1,23));
+
     // red arrow - side
+    geom.faces.push(new THREE.Face3(6,2,18));
+    geom.faces.push(new THREE.Face3(2,18,22));
+    geom.faces.push(new THREE.Face3(6,18,7));
+    geom.faces.push(new THREE.Face3(18,7,24));
+    geom.faces.push(new THREE.Face3(7,24,3));
+    geom.faces.push(new THREE.Face3(24,3,28));
+
     // blue arrow + side
     // blue arrow - side
 
