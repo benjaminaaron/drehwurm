@@ -1,4 +1,7 @@
-var camera, controls, scene, renderer;
+
+var camera, controls, scene, renderer, raycaster;
+var mouse = new THREE.Vector2(), intersected; // intersected is the element currently hit first by the mouse-ray, null if none is hit
+var cubes = [];
 
 init();
 render();
@@ -27,18 +30,58 @@ function init() {
     scene.add(light);
 
     window.addEventListener('resize', onWindowResize, false);
+    raycaster = new THREE.Raycaster();
+    document.addEventListener('mousemove', onMouseMove, false);
+    document.addEventListener('mouseup', onMouseUp, false);
 
     // setup cubes
 
-    var colors = ['aqua', 'aquamarine', 'blue', 'brown', 'coral', 'cyan', 'goldenrod', 'green', 'maroon', 'purple', 'teal'];
+    var colors = ['aqua', 'aquamarine', 'blue', 'brown', 'coral', 'cyan', 'goldenrod', 'green', 'maroon', 'purple', 'teal']; // via en.wikipedia.org/wiki/X11_color_names
     var count = 8;
     var cubesize = 8;
     for (var i = 0; i < count; i++) {
-        var cube = new Cube(new THREE.Color(colors[i]));
+        var cube = new Cube(i, new THREE.Color(colors[i]));
         var translate = cubesize * (0.5 + i - count / 2);
         cube.mesh.translateZ(translate);
         scene.add(cube.mesh);
+        cubes.push(cube);
     }
+}
+
+function onMouseMove(event) {
+    event.preventDefault();
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+    raycaster.setFromCamera(mouse, camera);
+    var intersects = raycaster.intersectObjects(scene.children); // via threejs.org/examples/#webgl_interactive_cubes
+    if (intersects.length > 0) {
+        if (intersected !== intersects[0].object) {
+            if (intersected) intersected.material.emissive.setHex(intersected.currentHex);
+            intersected = intersects[0].object;
+            intersected.currentHex = intersected.material.emissive.getHex();
+            intersected.material.emissive.setHex(0xff0000);
+        }
+    } else {
+        if (intersected) intersected.material.emissive.setHex(intersected.currentHex);
+        intersected = null;
+    }
+    render()
+}
+
+function onMouseUp(event) {
+    event.preventDefault();
+    if (intersected !== null) {
+        var cube = cubes.find(c => c.mesh.uuid === intersected.uuid);
+        switch(event.button) {
+            case 0:
+                cube.leftClick();
+                break;
+            case 2:
+                cube.rightClick();
+                break;
+        }
+    }
+    render()
 }
 
 function onWindowResize() {

@@ -1,5 +1,6 @@
 
-var Cube = function(col) {
+var Cube = function(id, col) {
+    this.id = id;
     var geom = new THREE.Geometry();
 
     geom.vertices.push(new THREE.Vector3(4,4,-4));           // 0
@@ -123,7 +124,10 @@ Cube.prototype = {
     toString: function() {
         return '';
     },
-    func: function() {
-
+    leftClick: function() {
+        console.log(this.id + ': left click received');
+    },
+    rightClick: function() {
+        console.log(this.id + ': right click received');
     }
 };
