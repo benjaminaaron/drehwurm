@@ -58,7 +58,6 @@ function init() {
     vertices.push(new THREE.Vector3(0.8,0.8,-0.4));     // 30
     vertices.push(new THREE.Vector3(-0.8,0.8,-0.4));    // 31
     geom.vertices = vertices;
-
     // blender green arrow + side
     geom.faces.push(new THREE.Face3(0,4,10));
     geom.faces.push(new THREE.Face3(10,14,4));
@@ -66,7 +65,6 @@ function init() {
     geom.faces.push(new THREE.Face3(10,3,8));
     geom.faces.push(new THREE.Face3(3,8,7));
     geom.faces.push(new THREE.Face3(8,7,12));
-
     // green arrow - side
     geom.faces.push(new THREE.Face3(5,1,11));
     geom.faces.push(new THREE.Face3(5,11,15));
@@ -74,7 +72,6 @@ function init() {
     geom.faces.push(new THREE.Face3(11,2,9));
     geom.faces.push(new THREE.Face3(2,9,6));
     geom.faces.push(new THREE.Face3(9,6,13));
-
     // red arrow + side
     geom.faces.push(new THREE.Face3(0,4,27));
     geom.faces.push(new THREE.Face3(0,27,29));
@@ -82,7 +79,6 @@ function init() {
     geom.faces.push(new THREE.Face3(27,5,21));
     geom.faces.push(new THREE.Face3(5,21,1));
     geom.faces.push(new THREE.Face3(21,1,23));
-
     // red arrow - side
     geom.faces.push(new THREE.Face3(6,2,18));
     geom.faces.push(new THREE.Face3(2,18,22));
@@ -90,19 +86,16 @@ function init() {
     geom.faces.push(new THREE.Face3(18,7,24));
     geom.faces.push(new THREE.Face3(7,24,3));
     geom.faces.push(new THREE.Face3(24,3,28));
-
     // blue arrow + side
     geom.faces.push(new THREE.Face3(4,5,14));
     geom.faces.push(new THREE.Face3(5,14,15));
     geom.faces.push(new THREE.Face3(13,12,7));
     geom.faces.push(new THREE.Face3(13,7,6));
-
     // blue arrow - side
     geom.faces.push(new THREE.Face3(0,3,29));
     geom.faces.push(new THREE.Face3(3,29,28));
     geom.faces.push(new THREE.Face3(23,1,22));
     geom.faces.push(new THREE.Face3(1,22,2));
-
     // inside blue + dir
     // bottom plates
     geom.faces.push(new THREE.Face3(10,8,30));
@@ -123,7 +116,6 @@ function init() {
     geom.faces.push(new THREE.Face3(26,20,15));
     geom.faces.push(new THREE.Face3(20,15,11));
     geom.faces.push(new THREE.Face3(11,16,20));
-
     // inside blue - dir
     // bottom plates
     geom.faces.push(new THREE.Face3(24,19,25));
@@ -145,17 +137,9 @@ function init() {
     geom.faces.push(new THREE.Face3(29,30,27));
     geom.faces.push(new THREE.Face3(30,27,26));
 
-    var spheres = [];
-    for (var i = 0 ; i < geom.vertices.length ; i++) { // via stackoverflow.com/a/26382195/2474159
-        var sphereGeometry = new THREE.SphereGeometry(0.2, 10, 10);
-        var sphereMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, opacity: 1});
-        spheres[i] = new THREE.Mesh(sphereGeometry, sphereMaterial);
-        spheres[i].position.set(geom.vertices[i].x, geom.vertices[i].y, geom.vertices[i].z);
-        scene.add(spheres[i]);
-    }
-
-    var mat = new THREE.MeshBasicMaterial({color: 0x0000ff, transparent:true, opacity: 0.2});
-    mat.side = THREE.DoubleSide;
+    var mat = new THREE.MeshLambertMaterial({color: 0x0000ff});//, transparent:true, opacity: 0.2});
+    mat.side = THREE.DoubleSide; // don't do this if performance becomes an issue, requires rearranging a lot of faces-indices to get the normals facing outwards
+    geom.computeFaceNormals(); //geom.computeVertexNormals();
     var facesMesh = new THREE.Mesh(geom, mat);
     scene.add(facesMesh);
 
@@ -189,6 +173,15 @@ function render() {
 
 
 /* PARKING LOT
+
+var spheres = [];
+for (var i = 0 ; i < geom.vertices.length ; i++) { // via stackoverflow.com/a/26382195/2474159
+    var sphereGeometry = new THREE.SphereGeometry(0.2, 10, 10);
+    var sphereMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, opacity: 1});
+    spheres[i] = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    spheres[i].position.set(geom.vertices[i].x, geom.vertices[i].y, geom.vertices[i].z);
+    scene.add(spheres[i]);
+}
 
 var side = [];
 side.push(vertices[0]);
