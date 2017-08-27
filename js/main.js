@@ -12,7 +12,7 @@ function init() {
     var container = document.getElementById('container');
     container.appendChild(renderer.domElement);
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z = 20;
+    camera.position.x = 50;
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.addEventListener('change', render); // remove when using animation loop
     controls.enableZoom = true;
@@ -31,8 +31,14 @@ function init() {
     // setup cubes
 
     var colors = ['aqua', 'aquamarine', 'blue', 'brown', 'coral', 'cyan', 'goldenrod', 'green', 'maroon', 'purple', 'teal'];
-    var cube = new Cube(new THREE.Color(colors[0]));
-    scene.add(cube.mesh);
+    var count = 8;
+    var cubesize = 8;
+    for (var i = 0; i < count; i++) {
+        var cube = new Cube(new THREE.Color(colors[i]));
+        var translate = cubesize * (0.5 + i - count / 2);
+        cube.mesh.translateZ(translate);
+        scene.add(cube.mesh);
+    }
 }
 
 function onWindowResize() {
