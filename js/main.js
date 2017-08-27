@@ -103,6 +103,48 @@ function init() {
     geom.faces.push(new THREE.Face3(23,1,22));
     geom.faces.push(new THREE.Face3(1,22,2));
 
+    // inside blue + dir
+    // bottom plates
+    geom.faces.push(new THREE.Face3(10,8,30));
+    geom.faces.push(new THREE.Face3(8,30,31));
+    geom.faces.push(new THREE.Face3(9,17,11));
+    geom.faces.push(new THREE.Face3(17,11,16));
+    // side red -
+    geom.faces.push(new THREE.Face3(9,17,19));
+    geom.faces.push(new THREE.Face3(9,19,13));
+    geom.faces.push(new THREE.Face3(13,19,12));
+    geom.faces.push(new THREE.Face3(19,25,12));
+    geom.faces.push(new THREE.Face3(12,25,8));
+    geom.faces.push(new THREE.Face3(25,8,31));
+    // side red +
+    geom.faces.push(new THREE.Face3(10,30,26));
+    geom.faces.push(new THREE.Face3(10,26,14));
+    geom.faces.push(new THREE.Face3(14,26,15));
+    geom.faces.push(new THREE.Face3(26,20,15));
+    geom.faces.push(new THREE.Face3(20,15,11));
+    geom.faces.push(new THREE.Face3(11,16,20));
+
+    // inside blue - dir
+    // bottom plates
+    geom.faces.push(new THREE.Face3(24,19,25));
+    geom.faces.push(new THREE.Face3(24,18,19));
+    geom.faces.push(new THREE.Face3(27,26,21));
+    geom.faces.push(new THREE.Face3(26,21,20));
+    //side green -
+    geom.faces.push(new THREE.Face3(18,19,17));
+    geom.faces.push(new THREE.Face3(18,17,22));
+    geom.faces.push(new THREE.Face3(22,17,23));
+    geom.faces.push(new THREE.Face3(17,16,23));
+    geom.faces.push(new THREE.Face3(16,23,21));
+    geom.faces.push(new THREE.Face3(16,21,20));
+    //side green +
+    geom.faces.push(new THREE.Face3(24,25,31));
+    geom.faces.push(new THREE.Face3(24,31,28));
+    geom.faces.push(new THREE.Face3(28,31,30));
+    geom.faces.push(new THREE.Face3(28,30,29));
+    geom.faces.push(new THREE.Face3(29,30,27));
+    geom.faces.push(new THREE.Face3(30,27,26));
+
     var spheres = [];
     for (var i = 0 ; i < geom.vertices.length ; i++) { // via stackoverflow.com/a/26382195/2474159
         var sphereGeometry = new THREE.SphereGeometry(0.2, 10, 10);
